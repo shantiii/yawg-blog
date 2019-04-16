@@ -22,4 +22,5 @@ both as a contrarian and also on a pragmatic level: I like the formatting
 primitives better (why is `__butt__` bold and `*lol*` italic in Markdown?).
 
 Throughout this process I have been frustrated by the seeming stagnation in
-AsciiDoc development. It might be fun to try to write a parser in a more performant language for AsciiDoc.
+AsciiDoc development. It might be fun to try to write a parser in a more
+performant language for AsciiDoc.

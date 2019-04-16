@@ -48,10 +48,13 @@ $(BLOG): $(BLOG)/ $(BLOG_PAGES)
 $(ERROR_PAGES):
 	cp $(@F) $@
 
-.PHONY: clean
+.PHONY: clean local-server
 
 clean:
 	- rm -rf $(TMP) $(TARGET);
+
+local-server:
+	- h2o -c h2o.yaml
 
 $(SITE): $(SITE)/ $(SITE)/index.html $(ERROR_PAGES) $(BLOG)
 
