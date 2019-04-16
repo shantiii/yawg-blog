@@ -5,7 +5,6 @@ SITE = $(TARGET)/site
 BLOG = $(SITE)/posts
 
 # probably don't change these
-scripts = scripts
 ERROR_PAGES = $(SITE)/40x.html $(SITE)/50x.html
 BLOG_FILES=$(shell find posts -type f -iregex '.*\..*' | sort)
 BLOG_PAGES=$(shell find posts -type f -iregex '.*\..*' | sort | sed -re 's:(.*)\.[^.]+:$(SITE)/\1.html:')
@@ -25,16 +24,18 @@ $(TMP)/%.html.fragment: %.md
 $(TMP)/%.html.fragment: %.markdown
 	pandoc -o $@ $<
 
-$(TMP)/toc.titles:
+$(TMP)/%.titles:
 	for i in $(BLOG_FILES) ; do echo $$i >>$@ ; done
 
-$(TMP)/toc.urls:
+$(TMP)/%.urls:
 	for i in $(BLOG_PAGES) ; do echo $$i >>$@ ; done
 
-$(TMP)/toc.fragment: $(TMP)/toc.titles $(TMP)/toc.urls
-	paste $+ | sed -Ee 's:(.*)\t$(SITE)/(.*):<a href="\2">\1\</a>:' >$@
+$(TMP)/%.tocfile: $(TMP)/%.titles $(TMP)/%.urls
+	echo '<ul>' >$@
+	paste $+ | sed -Ee 's:(.*)\t$(SITE)/(.*):<li><a href="\2">\1\</a></li>:' >>$@
+	echo '</ul>' >>$@
 
-$(SITE)/index.html: html.header $(TMP)/index.html.fragment $(TMP)/toc.fragment html.footer
+$(SITE)/index.html: html.header $(TMP)/index.html.fragment $(TMP)/toc.tocfile html.footer
 	cat $+ >$@
 
 $(BLOG)/%.html: html.header $(TMP)/posts/%.html.fragment html.footer
@@ -47,7 +48,7 @@ $(BLOG): $(BLOG)/ $(BLOG_PAGES)
 $(ERROR_PAGES):
 	cp $(@F) $@
 
-.PHONY: site clean
+.PHONY: clean
 
 clean:
 	- rm -rf $(TMP) $(TARGET);
