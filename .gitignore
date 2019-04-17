@@ -2,5 +2,6 @@
 /target
 # Intermediate Objects
 /tmp
-# Production Installation touchfile
-/.install-prod
+# Production Installation touchfiles
+/.publish-site
+/.publish-config

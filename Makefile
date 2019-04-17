@@ -49,10 +49,10 @@ $(BLOG): $(BLOG)/ $(BLOG_PAGES)
 $(ERROR_PAGES):
 	cp $(@F) $@
 
-.PHONY: clean local-server prod-server install-prod
+.PHONY: clean local-server prod-server publish .publish-site
 
 clean:
-	- rm -rf $(TMP) $(TARGET);
+	- rm -rf $(TMP) $(TARGET) .publish-site .publish-config;
 
 local-server:
 	- h2o -c h2o.yaml
@@ -60,14 +60,18 @@ local-server:
 prod-server:
 	- h2o -c config/h2o.prod.yaml
 
-install-prod: .install-prod
+publish: .publish-config .publish-site
 
-.install-prod: config/h2o.prod.yaml
+.publish-site: $(SITE)
+	- rsync -avz --delete-after $(SITE) $(PRODHOST):slagathor
+	- touch $@
+
+.publish-config: config/h2o.prod.yaml
 	- scp config/h2o.prod.yaml $(PRODHOST):/tmp/h2o.prod.conf
 	- ssh -t $(PRODHOST) sudo install -bpT -m 0644 -o root -g root /tmp/h2o.prod.conf /etc/h2o/h2o.conf
 	- ssh $(PRODHOST) rm /tmp/h2o.prod.conf
-	- ssh -t $(PRODHOST) sudo systemctl start h2o.service
-	- touch .install-prod
+	- ssh -t $(PRODHOST) sudo systemctl restart h2o.service
+	- touch $@
 
 $(SITE): $(SITE)/ $(SITE)/index.html $(ERROR_PAGES) $(BLOG)
 

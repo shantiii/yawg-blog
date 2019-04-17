@@ -11,3 +11,14 @@ Makefile-based static site generator.
 ## How?
 
 I'm testing this locally using [h2o](h2o.yaml).
+
+## Publishing
+
+Publish the site with:
+```
+make publish
+```
+
+## Who?
+
+Shanti Chellaram \[[github](https://github.com/shantiii)\].

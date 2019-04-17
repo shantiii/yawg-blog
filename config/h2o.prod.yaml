@@ -7,7 +7,7 @@ hosts:
       permission: 600
     paths:
       "/":
-        file.dir: /home/deploy/slagathor/target/site
+        file.dir: /home/deploy/slagathor/site
     error-doc:
       - status: 404
         url: /40x.html
