@@ -3,6 +3,7 @@ TARGET = target
 TMP = tmp
 SITE = $(TARGET)/site
 BLOG = $(SITE)/posts
+PRODHOST = shanti.wtf
 
 # probably don't change these
 ERROR_PAGES = $(SITE)/40x.html $(SITE)/50x.html
@@ -48,13 +49,25 @@ $(BLOG): $(BLOG)/ $(BLOG_PAGES)
 $(ERROR_PAGES):
 	cp $(@F) $@
 
-.PHONY: clean local-server
+.PHONY: clean local-server prod-server install-prod
 
 clean:
 	- rm -rf $(TMP) $(TARGET);
 
 local-server:
 	- h2o -c h2o.yaml
+
+prod-server:
+	- h2o -c config/h2o.prod.yaml
+
+install-prod: .install-prod
+
+.install-prod: config/h2o.prod.yaml
+	- scp config/h2o.prod.yaml $(PRODHOST):/tmp/h2o.prod.conf
+	- ssh -t $(PRODHOST) sudo install -bpT -m 0644 -o root -g root /tmp/h2o.prod.conf /etc/h2o/h2o.conf
+	- ssh $(PRODHOST) rm /tmp/h2o.prod.conf
+	- ssh -t $(PRODHOST) sudo systemctl start h2o.service
+	- touch .install-prod
 
 $(SITE): $(SITE)/ $(SITE)/index.html $(ERROR_PAGES) $(BLOG)
 

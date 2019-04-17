@@ -1,0 +1,15 @@
+hosts:
+  "shanti.wtf":
+    listen:
+      type: unix
+      port: /var/run/h2oblog.sock
+      owner: nginx
+      permission: 600
+    paths:
+      "/":
+        file.dir: /home/deploy/slagathor/target/site
+    error-doc:
+      - status: 404
+        url: /40x.html
+      - status: [500, 502, 503, 504]
+        url: /50x.html

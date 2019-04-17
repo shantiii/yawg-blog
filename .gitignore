@@ -1,2 +1,6 @@
+# Output Directory
 /target
+# Intermediate Objects
 /tmp
+# Production Installation touchfile
+/.install-prod
