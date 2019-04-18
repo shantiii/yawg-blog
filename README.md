@@ -25,10 +25,11 @@ Shanti Chellaram \[[github](https://github.com/shantiii)\].
 
 ## TODOs
 
-- [ ] Add dates to blog posts.
+- [x] Add dates to blog posts.
 - [ ] Sort by those dates.
 - [ ] Make formatting not terrible. (Also, define 'not-terrible')
 - [ ] Support assets (like images).
+- [ ] Add photography blog post.
 - [ ] CAS storage for assets, so I can have multiple references to the same file end up getting elided into a single thing.
 - [ ] Use webfonts?
 - [ ] Conditional font compilation - compile fonts I can embed with only the font information required on the generated webpage.
