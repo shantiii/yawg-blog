@@ -5,6 +5,7 @@ hosts:
       port: /var/run/h2oblog.sock
       owner: nginx
       permission: 600
+    compress: ON
     paths:
       "/":
         file.dir: /home/deploy/slagathor/site
