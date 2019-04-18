@@ -10,7 +10,7 @@ Makefile-based static site generator.
 
 ## How?
 
-I'm testing this locally using [h2o](h2o.yaml).
+I'm hosting this AND testing this locally using [h2o](h2o.yaml).
 
 ## Publishing
 
@@ -22,3 +22,13 @@ make publish
 ## Who?
 
 Shanti Chellaram \[[github](https://github.com/shantiii)\].
+
+## TODOs
+
+- [ ] Add dates to blog posts.
+- [ ] Sort by those dates.
+- [ ] Make formatting not terrible. (Also, define 'not-terrible')
+- [ ] Support assets (like images).
+- [ ] CAS storage for assets, so I can have multiple references to the same file end up getting elided into a single thing.
+- [ ] Use webfonts?
+- [ ] Conditional font compilation - compile fonts I can embed with only the font information required on the generated webpage.
