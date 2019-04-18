@@ -28,15 +28,18 @@ $(TMP)/%.html.fragment: $(SRC)/%.md
 $(TMP)/%.html.fragment: $(SRC)/%.markdown
 	pandoc -o $@ $<
 
+$(TMP)/%.dates:
+	for i in $(BLOG_FILES) ; do sed -nEe 's/^\[date\]: (.*)$$/\1/p' $$i >>$@ ; done
+
 $(TMP)/%.titles:
-	for i in $(BLOG_FILES) ; do echo $$i >>$@ ; done
+	for i in $(BLOG_FILES) ; do sed -nEe 's/^# (.*)$$/\1/p' $$i >>$@ ; done
 
 $(TMP)/%.urls:
 	for i in $(BLOG_PAGES) ; do echo $$i >>$@ ; done
 
-$(TMP)/%.tocfile: $(TMP)/%.titles $(TMP)/%.urls
+$(TMP)/%.tocfile: $(TMP)/%.titles $(TMP)/%.urls $(TMP)/%.dates
 	echo '<ul>' >$@
-	paste $+ | sed -Ee 's:(.*)\t$(SITE)/(.*):<li><a href="\2">\1\</a></li>:' >>$@
+	paste $+ | sed -Ee 's:(.*)\t$(SITE)/([^\t]*)\t(.*):<li><i>\3</i> - <a href="\2">\1\</a></li>:' >>$@
 	echo '</ul>' >>$@
 
 $(SITE)/index.html: $(SRC)/html.header $(TMP)/index.html.fragment $(TMP)/toc.tocfile $(SRC)/html.footer

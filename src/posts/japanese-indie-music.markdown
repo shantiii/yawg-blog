@@ -1,9 +1,4 @@
----
-layout: post
-title:  "Japanese Indie Music Tracklist"
-date:   2015-07-14 08:19:04
-tags: convention 日本語
----
+# Japanese Indie Music Tracklist
 
 This is a listing, in order, of the music videos that were played in the *Intro to Japanese Indie
 Music* presentation at ConnectiCon 2015. I took the liberty of translating/transliterating the japanese text, where
@@ -24,3 +19,4 @@ present.
 * [Charisma.com - HATE](https://www.youtube.com/watch?v=ffH_Mp74xh4)
 * [tricot - 爆裂パニエさん](https://www.youtube.com/watch?v=P_B_GalsJrE) (bakuretsu panie-san)
 
+[date]: 2015-07-14
