@@ -52,10 +52,15 @@ $(BLOG): $(BLOG)/ $(BLOG_PAGES)
 $(ERROR_PAGES):
 	cp $(SRC)/$(@F) $@
 
-.PHONY: clean prod-server publish .publish-site
+.PHONY: clean clean-all clean-config prod-server publish .publish-site
+
+clean-all: clean clean-config
 
 clean:
-	- rm -rf $(TMP) $(TARGET) .publish-site .publish-config;
+	- rm -rf $(TMP) $(TARGET)
+
+clean-config:
+	- rm -f .publish-site .publish-config
 
 prod-server:
 	- h2o -c config/h2o.prod.yaml
