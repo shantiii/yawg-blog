@@ -1,3 +1,6 @@
+# input directory
+SRC = src
+POSTS = $(SRC)/posts
 # output directories
 TARGET = target
 TMP = tmp
@@ -7,8 +10,8 @@ PRODHOST = shanti.wtf
 
 # probably don't change these
 ERROR_PAGES = $(SITE)/40x.html $(SITE)/50x.html
-BLOG_FILES=$(shell find posts -type f -iregex '.*\..*' | sort)
-BLOG_PAGES=$(shell find posts -type f -iregex '.*\..*' | sort | sed -re 's:(.*)\.[^.]+:$(SITE)/\1.html:')
+BLOG_FILES=$(shell find $(POSTS) -type f -iregex '.*\..*' | sort)
+BLOG_PAGES=$(shell find $(POSTS) -type f -iregex '.*\..*' | sort | sed -re 's:src/(.*)\.[^.]+:$(SITE)/\1.html:')
 
 all: $(SITE)
 
@@ -16,13 +19,13 @@ all: $(SITE)
 %/:
 	mkdir -p $@
 
-$(TMP)/%.html.fragment: %.asciidoc
+$(TMP)/%.html.fragment: $(SRC)/%.asciidoc
 	asciidoctor --no-header-footer -v -o $@ $<
 
-$(TMP)/%.html.fragment: %.md
+$(TMP)/%.html.fragment: $(SRC)/%.md
 	pandoc -o $@ $<
 
-$(TMP)/%.html.fragment: %.markdown
+$(TMP)/%.html.fragment: $(SRC)/%.markdown
 	pandoc -o $@ $<
 
 $(TMP)/%.titles:
@@ -36,10 +39,10 @@ $(TMP)/%.tocfile: $(TMP)/%.titles $(TMP)/%.urls
 	paste $+ | sed -Ee 's:(.*)\t$(SITE)/(.*):<li><a href="\2">\1\</a></li>:' >>$@
 	echo '</ul>' >>$@
 
-$(SITE)/index.html: html.header $(TMP)/index.html.fragment $(TMP)/toc.tocfile html.footer
+$(SITE)/index.html: $(SRC)/html.header $(TMP)/index.html.fragment $(TMP)/toc.tocfile $(SRC)/html.footer
 	cat $+ >$@
 
-$(BLOG)/%.html: html.header $(TMP)/posts/%.html.fragment html.footer
+$(BLOG)/%.html: $(SRC)/html.header $(TMP)/posts/%.html.fragment $(SRC)/html.footer
 	cat $+ >$@
 
 $(BLOG)/: $(TMP)/posts/
@@ -47,7 +50,7 @@ $(BLOG)/: $(TMP)/posts/
 $(BLOG): $(BLOG)/ $(BLOG_PAGES)
 
 $(ERROR_PAGES):
-	cp $(@F) $@
+	cp $(SRC)/$(@F) $@
 
 .PHONY: clean prod-server publish .publish-site
 
