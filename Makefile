@@ -49,13 +49,10 @@ $(BLOG): $(BLOG)/ $(BLOG_PAGES)
 $(ERROR_PAGES):
 	cp $(@F) $@
 
-.PHONY: clean local-server prod-server publish .publish-site
+.PHONY: clean prod-server publish .publish-site
 
 clean:
 	- rm -rf $(TMP) $(TARGET) .publish-site .publish-config;
-
-local-server:
-	- h2o -c h2o.yaml
 
 prod-server:
 	- h2o -c config/h2o.prod.yaml
