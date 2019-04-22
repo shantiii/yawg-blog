@@ -1,0 +1,15 @@
+hosts:
+  "shanti.wtf":
+    listen:
+      port: 8080
+    compress: ON
+    paths:
+      "/":
+        file.dir: target/site
+    error-doc:
+      - status: 404
+        url: /40x.html
+      - status: [500, 502, 503, 504]
+        url: /50x.html
+file.mime.addtypes:
+  "text/html; charset=utf-8": .html
