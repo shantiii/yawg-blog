@@ -10,36 +10,36 @@ PRODHOST = shanti.wtf
 
 # probably don't change these
 ERROR_PAGES = $(SITE)/40x.html $(SITE)/50x.html
-BLOG_FILES=$(shell find $(POSTS) -type f -iregex '.*\..*' | sort)
-BLOG_PAGES=$(shell find $(POSTS) -type f -iregex '.*\..*' | sort | sed -re 's:src/(.*)\.[^.]+:$(SITE)/\1.html:')
+BLOG_FILES=$(shell find $(POSTS) -type f -iregex '.*\.markdown' | sort)
+BLOG_PAGES=$(shell find $(POSTS) -type f -iregex '.*\.markdown' | sort | sed -re 's:src/(.*)\.[^.]+:$(SITE)/\1.html:')
 
 all: $(SITE)
 
 # to make a directory, one must... mkdir
 %/:
-	mkdir -p $@
+	- test -d $@ || mkdir -p $@
 
-$(TMP)/%.html.fragment: $(SRC)/%.asciidoc
+$(TMP)/%.html.fragment: $(SRC)/%.asciidoc $(TMP)/
 	asciidoctor --no-header-footer -v -o $@ $<
 
-$(TMP)/%.html.fragment: $(SRC)/%.md
+$(TMP)/%.html.fragment: $(SRC)/%.md $(TMP)/
 	pandoc -o $@ $<
 
-$(TMP)/%.html.fragment: $(SRC)/%.markdown
+$(TMP)/%.html.fragment: $(SRC)/%.markdown $(TMP)/
 	pandoc -o $@ $<
 
-$(TMP)/%.dates:
+$(TMP)/%.dates: $(BLOG_FILES)
 	for i in $(BLOG_FILES) ; do sed -nEe 's/^\[date\]: (.*)$$/\1/p' $$i >>$@ ; done
 
-$(TMP)/%.titles:
+$(TMP)/%.titles: $(BLOG_FILES)
 	for i in $(BLOG_FILES) ; do sed -nEe 's/^# (.*)$$/\1/p' $$i >>$@ ; done
 
-$(TMP)/%.urls:
+$(TMP)/%.urls: $(BLOG_FILES)
 	for i in $(BLOG_PAGES) ; do echo $$i >>$@ ; done
 
-$(TMP)/%.tocfile: $(TMP)/%.titles $(TMP)/%.urls $(TMP)/%.dates
+$(TMP)/%.tocfile: $(TMP)/%.dates $(TMP)/%.titles $(TMP)/%.urls
 	echo '<ul>' >$@
-	paste $+ | sed -Ee 's:(.*)\t$(SITE)/([^\t]*)\t(.*):<li><i>\3</i> - <a href="\2">\1\</a></li>:' >>$@
+	paste $+ | sort -r | sed -Ee 's:(.*)\t(.*)\t$(SITE)/([^\t]*):<li><i>\1</i> - <a href="\3">\2\</a></li>:' >>$@
 	echo '</ul>' >>$@
 
 $(SITE)/index.html: $(SRC)/html.header $(TMP)/index.html.fragment $(TMP)/toc.tocfile $(SRC)/html.footer

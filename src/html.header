@@ -2,5 +2,16 @@
 <html>
 	<head>
 		<title> one day baby </title>
+<style>
+body {
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
 	</head>
 	<body>
+		<header>
+			<a href="/"><b>shanti.wtf</b></a>
+			<a href="https://github.com/shantiii">github</a>
+		</header>
