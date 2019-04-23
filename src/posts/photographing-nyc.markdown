@@ -1,4 +1,4 @@
-# Learning how to Brotograph
+# Learning how to Photograph (links broken)
 
 Recently, in an unsurprising move of pseudo-pragmatic contrarianism, I purchased a film camera. Shortly thereafter, I purchased some rolls of film and maladroitly shot my way across New York City.
 
