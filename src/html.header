@@ -8,6 +8,37 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+pre.sourceCode {
+  padding: 5px;
+  color: papayawhip;
+  background-color: darkslategrey;
+}
+
+.sourceCode .kw {
+  font-weight: bold;
+  color: gold;
+}
+.sourceCode .dt {
+  color: lightgreen;
+  font-weight: bold;
+}
+.sourceCode .cn {
+  color: darkorange;
+}
+
+.sourceCode .dv,.st {
+  color: hotpink;
+}
+.sourceCode .pp {
+  color: lightblue;
+}
+
+code {
+  padding: 2px;
+  color: papayawhip;
+  background-color: darkslategrey;
+}
 </style>
 	</head>
 	<body>
