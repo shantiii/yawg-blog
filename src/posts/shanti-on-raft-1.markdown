@@ -5,9 +5,8 @@ I have answered the question of "what are you working on" on a near-daily
 basis. This is my attempt to lay a foundation to understand what I mean when I
 talk "Distributed Systems".
 
-Many applications these days (TK links) claim to be or support distributed
-systems. I'm going to refer to the term to more closely resemble academia's
-use.
+Many applications these days claim to be or support distributed systems. I'm
+going to refer to the term to more closely resemble academia's use.
 
 ## Process Model
 
@@ -49,9 +48,9 @@ state is labeled **persistent**.
 
 ## Applications
 
-Human beings form a process model. Gossip communication (between people)
-spreads in a similar way. Two people waving to each other in greeting is
-fundamentally the same as a TCP handshake.
+We can apply this lens to human beings. Humans are processes, and spoken
+language and hearsay spreads the way data does in a network.  Two people waving
+to each other in greeting is fundamentally the same as a TCP handshake.
 
 In the same way that we have managed to build (seemingly) reliable networks out
 of faulty network components, it is my goal with distributed systems to build
@@ -60,3 +59,4 @@ reliable processes out of fault ones.
 
 [rc]: https://www.recurse.com "Recurse Center"
 [terribledb]: https://github.com/shantiii/terribledb "TerribleDB"
+[date]: 2019-05-15
