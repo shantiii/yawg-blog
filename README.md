@@ -44,3 +44,5 @@ Shanti Chellaram \[[github](https://github.com/shantiii)\].
 - [ ] CAS storage for assets, so I can have multiple references to the same file end up getting elided into a single thing.
 - [ ] Use webfonts?
 - [ ] Conditional font compilation - compile fonts I can embed with only the font information required on the generated webpage.
+- [x] Add favicon
+- [ ] Animate favicon
