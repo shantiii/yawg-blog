@@ -52,6 +52,9 @@ $(BLOG)/: $(TMP)/posts/
 
 $(BLOG): $(BLOG)/ $(BLOG_PAGES)
 
+$(SITE)/favicon.ico: $(SRC)/favicon.png
+	cat $< >$@
+
 $(ERROR_PAGES):
 	cp $(SRC)/$(@F) $@
 
@@ -84,7 +87,7 @@ publish: .publish-config .publish-site
 	- ssh -t $(PRODHOST) sudo systemctl restart h2o.service
 	- touch $@
 
-$(SITE): $(SITE)/ $(SITE)/index.html $(ERROR_PAGES) $(BLOG)
+$(SITE): $(SITE)/ $(SITE)/index.html $(ERROR_PAGES) $(BLOG) $(SITE)/favicon.ico
 
 # Disable all the C-assuming nonsense in make
 MAKEFLAGS += --no-builtin-rules
